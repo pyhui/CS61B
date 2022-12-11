@@ -113,6 +113,61 @@ public class Model extends Observable {
         // TODO: Modify this.board (and perhaps this.score) to account
         // for the tilt to the Side SIDE. If the board changed, set the
         // changed local variable to true.
+        if (side != Side.NORTH ){
+            board.setViewingPerspective(side);
+        }
+
+        //if (side == Side.NORTH) {
+            for (int col = 0; col < size(); col++) {
+                int flag = size() - 1;
+                int merge = 0;   //合并计数
+                for (int row = size() - 1; row >= 0; row -= 1) {
+                    if (board.tile(col, row) != null) {
+                        if (flag == size() - 1) {             //flag == 3 -- (size() -1)
+                            if (row != size() - 1) {
+                                board.move(col, flag, board.tile(col, row));
+                                changed = true;
+                            }
+                            flag = flag - 1;
+                        } else {       // flag < 3
+                            if (merge == 0) {     //没有合并过
+                                if (board.tile(col, row).value() != board.tile(col, flag + 1).value()){    //和上面的值不相等
+                                    board.move(col, flag, board.tile(col, row));
+                                    changed = true;
+                                    flag = flag - 1;
+                                } else {     //和上面的值相等
+                                    board.move(col, flag + 1, board.tile(col, row));
+                                    changed = true;
+                                    merge = merge + 1;
+                                    score += board.tile(col, flag + 1).value();
+                                }
+                            } else {    //merge >= 1  合并过  (合并后，flag一定为空
+                                if (flag == size() - 2){    //flag == 2  -- (size() -2)
+                                    board.move(col, flag, board.tile(col, row));
+                                    changed = true;
+                                    flag = flag - 1;
+                                }
+                                if (board.tile(col, row) != null & flag == size() - 3){   //flag == 1
+                                    if (board.tile(col, row).value() != board.tile(col, flag + 1).value()){    //和上面的值不相等
+                                        board.move(col, flag, board.tile(col, row));
+                                        changed = true;
+                                        flag = flag - 1;
+                                        } else {     //和上面的值相等
+                                            board.move(col, flag + 1, board.tile(col, row));
+                                            changed = true;
+                                            merge = merge + 1;
+                                            score += board.tile(col, flag + 1).value();
+                                        }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+        if (side != Side.NORTH ){
+            board.setViewingPerspective(Side.NORTH);
+        }
 
         checkGameOver();
         if (changed) {
@@ -138,6 +193,13 @@ public class Model extends Observable {
      * */
     public static boolean emptySpaceExists(Board b) {
         // TODO: Fill in this function.
+        for(int col = 0;col < b.size();col++){
+            for(int row = 0;row < b.size();row++){
+                if(b.tile(col,row) == null){
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -148,6 +210,15 @@ public class Model extends Observable {
      */
     public static boolean maxTileExists(Board b) {
         // TODO: Fill in this function.
+        for(int col = 0;col < b.size();col++){
+            for(int row = 0;row < b.size();row++){
+                if(b.tile(col,row) != null){
+                    if(b.tile(col,row).value() == MAX_PIECE) {
+                        return true;
+                    }
+                }
+            }
+        }
         return false;
     }
 
@@ -159,7 +230,29 @@ public class Model extends Observable {
      */
     public static boolean atLeastOneMoveExists(Board b) {
         // TODO: Fill in this function.
-        return false;
+        if(Model.emptySpaceExists(b)){
+            return true;
+        }else{
+            for(int col = 0;col < b.size();col++) {
+                for (int row = 0; row < b.size() - 1; row++) {
+                    if (b.tile(col, row) != null) {
+                        if (b.tile(col, row).value() == b.tile(col, row + 1).value()) {
+                            return true;
+                        }
+                    }
+                }
+            }
+            for(int row = 0;row < b.size();row++) {
+                for (int col = 0; col < b.size() - 1; col++) {
+                    if (b.tile(col, row) != null) {
+                        if (b.tile(col, row).value() == b.tile(col + 1, row).value()) {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
     }
 
 
