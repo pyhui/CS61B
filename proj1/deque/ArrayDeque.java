@@ -156,33 +156,4 @@ public class ArrayDeque<T> {
         }
         return false;
     }
-
-
-    public static void main(String[] args) {
-        ArrayDeque<Character> items = new ArrayDeque();
-        items.addLast('a');
-        items.addLast('b');
-        items.addFirst('c');
-        items.addLast('d');
-        items.addLast('e');
-        items.addFirst('f');
-        items.addLast('g');
-        items.addLast('h');
-        items.addLast('Z');
-        items.printDeque();
-        System.out.println(items.removeLast());
-        System.out.println(items.removeFirst());
-        System.out.println(items.removeFirst());
-        System.out.println(items.removeFirst());
-        System.out.println(items.removeFirst());
-        items.printDeque();
-        System.out.println(items.get(0));
-        System.out.println(items.removeFirst());
-        items.printDeque();
-        System.out.println(items.removeFirst());
-        System.out.println(items.removeFirst());
-
-        items.printDeque();
-        System.out.println(items.get(0));
-    }
 }
