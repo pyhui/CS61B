@@ -27,8 +27,18 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             items = a;
             front = items.length - 1;
             back = items.length / 2;
-        } else {
-            System.arraycopy(items, front + 1, a, 0, size);
+        } else {  //缩小容量
+            if (front > back) {
+                if (front == items.length - 1) {
+                    System.arraycopy(items, 0, a, 0, size);
+                } else {
+                    System.arraycopy(items, front + 1, a, 0, items.length - front - 1);
+                    System.arraycopy(items, 0, a, items.length - front - 1, back - 1);
+                }
+            } else if (front < back) {
+                System.arraycopy(items, front + 1, a, 0, size);
+            }
+
             items = a;
             front = items.length - 1;
             back = size;
@@ -172,8 +182,8 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     }
     /** Returns whether or not the parameter o is equal to the Deque. */
     public boolean equals(Object o) {
-        if (o instanceof LinkedListDeque || o instanceof LinkedListDeque) {
-            ArrayDeque p = (ArrayDeque) o;
+        if (o instanceof Deque) {
+            Deque p = (Deque) o;
             if (p.size() != size) {
                 return false;
             }
@@ -187,15 +197,4 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         return false;
     }
 
-    public static void main(String[] args) {
-        ArrayDeque<Integer> aset = new ArrayDeque<>();
-        aset.addFirst(5);
-        aset.addLast(23);
-        aset.addFirst(42);
-
-        //iteration
-        for (int i : aset) {
-            System.out.println(i);
-        }
-    }
 }

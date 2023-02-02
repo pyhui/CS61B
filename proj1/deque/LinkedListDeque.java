@@ -9,7 +9,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         private T item;
         private IntNode next;
 
-        public IntNode(IntNode m, T i, IntNode n) {
+        IntNode(IntNode m, T i, IntNode n) {
             prev = m;
             item = i;
             next = n;
@@ -169,8 +169,8 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     }
     /** Returns whether or not the parameter o is equal to the Deque. */
     public boolean equals(Object o) {
-        if (o instanceof LinkedListDeque || o instanceof LinkedListDeque) {
-            LinkedListDeque p = (LinkedListDeque) o;
+        if (o instanceof Deque) {
+            Deque p = (Deque) o;
             if (p.size() != size) {
                 return false;
             }
