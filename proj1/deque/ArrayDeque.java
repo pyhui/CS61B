@@ -149,7 +149,6 @@ public class ArrayDeque<T> implements Deque<T> {
         return null;
     }
     /** return an iterator. */
-    @Override
     public Iterator<T> iterator() {
         return new ArrayDequeIterator();
     }
@@ -173,8 +172,8 @@ public class ArrayDeque<T> implements Deque<T> {
     }
     /** Returns whether or not the parameter o is equal to the Deque. */
     public boolean equals(Object o) {
-        if (o instanceof LinkedListDeque) {
-            LinkedListDeque p = (LinkedListDeque) o;
+        if (o instanceof ArrayDeque) {
+            ArrayDeque p = (ArrayDeque) o;
             if (p.size() != size) {
                 return false;
             }

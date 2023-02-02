@@ -147,7 +147,7 @@ public class LinkedListDeque<T> implements Deque<T> {
         IntNode p = sentinel;
         return getRecursive_helper(p,index);
     }
-    @Override
+
     /** return an iterator. */
     public Iterator<T> iterator() {
         return new LinkedListDequeIterator();
