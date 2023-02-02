@@ -7,13 +7,13 @@ import java.util.Comparator;
  * but it also has 2 additional methods and a new constructor.
  */
 public class MaxArrayDeque<T> extends ArrayDeque<T> {
-    Comparator<T> MaxArrayDequeComparator;
+    private Comparator<T> maxArrayDequeComparator;
     public MaxArrayDeque(Comparator<T> c) {
-        MaxArrayDequeComparator = c;
+        maxArrayDequeComparator = c;
     }
 
     public T max() {
-        return max(MaxArrayDequeComparator);
+        return max(maxArrayDequeComparator);
     }
 
     public T max(Comparator<T> c) {
@@ -22,7 +22,7 @@ public class MaxArrayDeque<T> extends ArrayDeque<T> {
         }
         T maxItem = this.get(0);
         for (int i = 0; i < size(); i++) {
-            if (c.compare(maxItem,this.get(i)) < 0) {
+            if (c.compare(maxItem, this.get(i)) < 0) {
                 maxItem = this.get(i);
             }
         }

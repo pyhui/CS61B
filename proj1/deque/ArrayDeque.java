@@ -2,7 +2,7 @@ package deque;
 
 import java.util.Iterator;
 
-public class ArrayDeque<T> implements Deque<T> {
+public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     private T[] items;
     private int size;
     private int front;
@@ -154,7 +154,7 @@ public class ArrayDeque<T> implements Deque<T> {
     }
     private class ArrayDequeIterator implements Iterator<T> {
         private int wizPos;
-        public ArrayDequeIterator() {
+        ArrayDequeIterator() {
             wizPos = 0;
         }
         public boolean hasNext() {
@@ -172,13 +172,13 @@ public class ArrayDeque<T> implements Deque<T> {
     }
     /** Returns whether or not the parameter o is equal to the Deque. */
     public boolean equals(Object o) {
-        if (o instanceof ArrayDeque) {
+        if (o instanceof LinkedListDeque || o instanceof LinkedListDeque) {
             ArrayDeque p = (ArrayDeque) o;
             if (p.size() != size) {
                 return false;
             }
-            for (int i = 0; i < size; i++){
-                if (this.get(i) != p.get(i)){
+            for (int i = 0; i < size; i++) {
+                if (this.get(i) != p.get(i)) {
                     return false;
                 }
             }
@@ -187,4 +187,15 @@ public class ArrayDeque<T> implements Deque<T> {
         return false;
     }
 
+    public static void main(String[] args) {
+        ArrayDeque<Integer> aset = new ArrayDeque<>();
+        aset.addFirst(5);
+        aset.addLast(23);
+        aset.addFirst(42);
+
+        //iteration
+        for (int i : aset) {
+            System.out.println(i);
+        }
+    }
 }

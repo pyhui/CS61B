@@ -1,14 +1,13 @@
 package deque;
 
 import java.util.Iterator;
-import java.util.ListIterator;
 
-public class LinkedListDeque<T> implements Deque<T> {
+public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     /** Creates a double linked list. */
     private class IntNode {
-        public IntNode prev;
-        public T item;
-        public IntNode next;
+        private IntNode prev;
+        private T item;
+        private IntNode next;
 
         public IntNode(IntNode m, T i, IntNode n) {
             prev = m;
@@ -134,18 +133,18 @@ public class LinkedListDeque<T> implements Deque<T> {
         return null;
     }
     /** Gets the item at the given index, but uses recursion. */
-    private T getRecursive_helper(IntNode x, int index) {
+    private T getRecursiveHelper(IntNode x, int index) {
         if (size == 0 || index > size) {
             return null;
         } else if (index == 0) {
             return x.next.item;
         } else {
-            return getRecursive_helper(x.next, index - 1);
+            return getRecursiveHelper(x.next, index - 1);
         }
     }
     public T getRecursive(int index) {
         IntNode p = sentinel;
-        return getRecursive_helper(p,index);
+        return getRecursiveHelper(p, index);
     }
 
     /** return an iterator. */
@@ -155,7 +154,7 @@ public class LinkedListDeque<T> implements Deque<T> {
     private class LinkedListDequeIterator implements Iterator<T> {
         private int wizPos;
         IntNode p = sentinel;
-        public LinkedListDequeIterator() {
+        LinkedListDequeIterator() {
             wizPos = 0;
         }
         public boolean hasNext() {
@@ -170,13 +169,13 @@ public class LinkedListDeque<T> implements Deque<T> {
     }
     /** Returns whether or not the parameter o is equal to the Deque. */
     public boolean equals(Object o) {
-        if (o instanceof LinkedListDeque) {
+        if (o instanceof LinkedListDeque || o instanceof LinkedListDeque) {
             LinkedListDeque p = (LinkedListDeque) o;
             if (p.size() != size) {
                 return false;
             }
-            for (int i = 0; i < size; i++){
-                if (this.get(i) != p.get(i)){
+            for (int i = 0; i < size; i++) {
+                if (this.get(i) != p.get(i)) {
                     return false;
                 }
             }
