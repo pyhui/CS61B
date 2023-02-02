@@ -2,7 +2,7 @@ package deque;
 
 import java.util.Iterator;
 
-public class ArrayDeque<T> {
+public class ArrayDeque<T> implements Deque<T> {
     private T[] items;
     private int size;
     private int front;
@@ -35,6 +35,7 @@ public class ArrayDeque<T> {
         }
     }
     /** Inserts X into the first of the list. */
+    @Override
     public void addFirst(T item) {
         if (size == items.length) {
             resize(size * 2);
@@ -48,6 +49,7 @@ public class ArrayDeque<T> {
         }
     }
     /** Inserts X into the back of the list. */
+    @Override
     public void addLast(T item) {
         if (size == items.length) {
             resize(size * 2);
@@ -60,18 +62,25 @@ public class ArrayDeque<T> {
             back += 1;
         }
     }
-    /** Returns true if deque is empty, false otherwise. */
+    // /** Returns true if deque is empty, false otherwise. */
+    /*
+
+
+    @Override
     public boolean isEmpty() {
         if (size == 0) {
             return true;
         }
         return false;
     }
+    */
     /** Returns the number of items in the deque. */
+    @Override
     public int size() {
         return size;
     }
     /** Prints the items in the deque from first to last. */
+    @Override
     public void printDeque() {
         if (size != 0) {
             if (front != items.length - 1) {
@@ -89,6 +98,7 @@ public class ArrayDeque<T> {
     }
 
     /** Removes and returns the item at the front of the deque. */
+    @Override
     public T removeFirst() {
         if (size != 0) {
             if (front != items.length - 1) {
@@ -107,6 +117,7 @@ public class ArrayDeque<T> {
         return null;
     }
     /** Removes and returns the item at the back of the deque. */
+    @Override
     public T removeLast() {
         if (size != 0) {
             if (back != 0) {
@@ -125,9 +136,10 @@ public class ArrayDeque<T> {
         return null;
     }
     /** Gets the item at the given index. */
+    @Override
     public T get(int index) {
         if (index < size) {
-            index = front + index+ 1;
+            index = front + index + 1;
             if (index < items.length) {
                 return items[index];
             } else {
@@ -137,9 +149,28 @@ public class ArrayDeque<T> {
         return null;
     }
     /** return an iterator. */
-    //public Iterator<T> iterator() {
-
-    //}
+    @Override
+    public Iterator<T> iterator() {
+        return new ArrayDequeIterator();
+    }
+    private class ArrayDequeIterator implements Iterator<T> {
+        private int wizPos;
+        public ArrayDequeIterator() {
+            wizPos = 0;
+        }
+        public boolean hasNext() {
+            return wizPos < size;
+        }
+        public T next() {
+            int n = front + 1 + wizPos;
+            wizPos += 1;
+            if (n < items.length) {
+                return items[n];
+            } else {
+                return items[n - items.length];
+            }
+        }
+    }
     /** Returns whether or not the parameter o is equal to the Deque. */
     public boolean equals(Object o) {
         if (o instanceof LinkedListDeque) {
@@ -156,4 +187,5 @@ public class ArrayDeque<T> {
         }
         return false;
     }
+
 }
