@@ -41,17 +41,17 @@ public class ArrayDequeTest {
             } else if (operationNumber == 2) {
                 // size
                 int x = L.size();
-                System.out.println("size: " + x);
-                int y = L.size();
-                System.out.println("size: " + y);
+                System.out.println("sizeLinkedListDeque: " + x);
+                int y = B.size();
+                System.out.println("sizeArrayDeque: " + y);
                 //assertEquals(L.size(), B.size());
             } else if (operationNumber == 3) {
                 // get
                 if (L.size() > 0) {
                     int x = L.get(0);
-                    System.out.println("getFirst(" + x + ")");
+                    System.out.println("getFirstLinkedListDeque(" + x + ")");
                     int y = B.get(0);
-                    System.out.println("getFirst(" + y + ")");
+                    System.out.println("getFirstArrayDeque(" + y + ")");
                     //assertEquals(L.get(0), B.get(0));
                 }
             } else if (operationNumber == 4) {
@@ -63,10 +63,11 @@ public class ArrayDequeTest {
                 // removeLast
                 if (L.size() > 0) {
                     int x = L.removeLast();
-                    System.out.println("removeLast(" + x + ")");
+                    System.out.println("removeLastLinkedListDeque(" + x + ")");
                     int y = B.removeLast();
-                    System.out.println("removeLast(" + y + ")");
+                    System.out.println("removeLastArrayDeque(" + y + ")");
                     //assertEquals(L.removeLast(), B.removeLast());
+                    assertEquals(x, y);
                 }
             }
         }
